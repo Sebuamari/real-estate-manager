@@ -1,0 +1,14 @@
+.header_container {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    padding: 38px 162px;
+
+    .header {
+
+        &_logo {
+            width: 150px;
+            height: auto;
+        }
+    }
+}
