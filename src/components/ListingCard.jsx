@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import ListingCardStyles from "../styles/sass/ListingCard.module.scss";
 import space from "../assets/svg/area.svg";
 import bed from "../assets/svg/bed.svg";
@@ -10,8 +10,6 @@ const ListingCard = ({
     address,
     area,
     bedrooms,
-    city,
-    city_id,
     id,
     image,
     is_rental,
@@ -19,9 +17,14 @@ const ListingCard = ({
     zip_code,
   }
 }) => {
-    
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+      navigate(`/listing/${id}`);
+    };
+
     return (
-      <div className={ListingCardStyles.listing_card}>
+      <div className={ListingCardStyles.listing_card} onClick={handleClick}>
         <p className={ListingCardStyles.listing_card__tag}>{is_rental ? "ქირავდება" : "იყიდება"}</p>
         <img className={ListingCardStyles.listing_card__image} src={image} alt="Real estate property" />
         <div className={ListingCardStyles.listing_card__info}>
