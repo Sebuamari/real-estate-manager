@@ -1,5 +1,5 @@
 .listing_page {
-    padding: 64px 162px 0;
+    padding: 64px 162px 228px;
   
     .back_arrow {
       margin: 64px 0 29px 0;
@@ -156,5 +156,25 @@
         line-height: 14.4px;
       }
     }
-  }
+
+    .similar {
+      margin-top: 67px;
+
+      h2 {
+        color: var(--text_black);
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 38.4px;
+        margin-bottom: 32px;
+      }
+
+      .prev_arrow {
+        left: -60px;
+      }
+
+      .next_arrow {
+        right: -60px;
+      }
+    }
+}
   

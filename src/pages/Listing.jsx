@@ -24,7 +24,6 @@ const Listing = () => {
             .then(response => response.json())
             .then(data => {
                 setListing(data);
-                console.log(data);
                 setLoading(false);
             });
     }, [id]);
@@ -69,7 +68,7 @@ const Listing = () => {
                     <button>ლისტინგის წაშლა</button>
                 </div>
             </div>
-            <SimilarListings id={id}/>
+            <SimilarListings listing={listing}/>
         </div>
     );
 };
