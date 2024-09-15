@@ -1,6 +1,21 @@
-.listing {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+.listing_container {
     padding: 77px 162px 228px 162px;
+
+    .listing_actions {
+        display: flex;
+        justify-content: space-between;
+
+        &_buttons {
+            display: flex;
+            gap: 16px;
+        }
+    
+    }
+
+    .listing {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 77px;
+    }
 }

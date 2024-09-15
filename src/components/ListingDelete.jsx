@@ -19,7 +19,6 @@ const ListingDelete = ({id, onClick}) => {
         .then(response => {
             if (response.ok) {
                 document.body.style.overflow = "auto";
-                alert("Listing deleted successfully.");
                 navigate("/");
             } else {
                 alert("Failed to delete listing.");
