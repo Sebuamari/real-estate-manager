@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from 'formik';
 import plus_circle from "../assets/svg/plus_circle.svg"
 import AddAgentStyles from "../styles/sass/AddAgent.module.scss";
@@ -6,8 +5,6 @@ import Button from './Button';
 import * as Yup from 'yup';
 
 const AddAgent = ({id, onClick}) => {
-    const navigate = useNavigate();
-
     const addAgent = async (values) => {
         const headers = { 
             'accept': 'application/json',
@@ -98,7 +95,7 @@ const AddAgent = ({id, onClick}) => {
                     </div>
 
                     <div className={AddAgentStyles.form_group}>
-                        <label htmlFor="firstName">ელ-ფოსტა*</label>
+                        <label htmlFor="firstName">ელ-ფოსტა *</label>
                         <Field name="email" type="email" />
                         {errors.email && touched.email ? <div>{errors.email}</div> : null}
                     </div>

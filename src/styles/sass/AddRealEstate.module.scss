@@ -1,0 +1,121 @@
+.add_real_estate {
+    padding: 62px 564px 228px 564px;
+
+    h1 {
+        margin-bottom: 61px;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 38.4px;
+        color: var(--text_black);
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 80px;
+
+        .form_group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+
+            &_rental {
+                label {
+                    margin-right: 84px;
+                }
+            }
+            h2 {
+                font-size: 16px;
+                font-weight: 500;
+                color: var(--text_light_black);
+                line-height: 19.54px;
+                grid-column: span 2;
+            }
+
+            .form_subgroup {
+                display: flex;
+                flex-direction: column;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 16.8px;
+                color: var(--text_black);
+
+                label {
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 16.8px;
+                    color: var(--text_black);
+                }
+
+                input,
+                select,
+                &_description textarea {
+                    padding: 10px;
+                    margin: 5px 0 4px;
+                    border-radius: 6px;
+                    border: 1px solid #808A93
+                }
+
+                &_description {
+                    grid-column: span 2;
+
+                    textarea {
+                        height: 135px;
+                    }
+                }
+
+                &_image {
+                    position: relative;
+                    grid-column: span 2;
+                    height: 141px;
+    
+                    .custom {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: absolute;
+                        width: 100%;
+                        height: calc(100% - 42px);
+                        top: 22px;
+                        border-radius: 6px;
+                        background-color: #FFF;
+                        border: 1px dotted #2D3648;
+                        overflow: hidden;
+                    }
+    
+                    &_preview {
+                        height: 250px;
+                        
+                        .custom {
+                            width: 100%;
+                            height: calc(100% - 26px);
+                            object-fit: cover;
+    
+                            img {
+                                width: 100%;
+                                height: auto;
+                                object-fit: cover;
+                            }
+                        }
+                    }
+                    
+                    input {
+                        height: 100%;
+                        opacity: 0;
+    
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+
+        .add_real_estate_buttons {
+            display: flex;
+            justify-content: end;
+            gap: 15px;
+        }
+    }
+}
