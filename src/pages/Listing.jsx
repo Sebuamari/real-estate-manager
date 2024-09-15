@@ -6,6 +6,7 @@ import bed from "../assets/svg/bed.svg";
 import sign from "../assets/svg/sign.svg";
 import pin from "../assets/svg/pin.svg";
 import SimilarListings from "../components/SimilarListings";
+import ListingDelete from "../components/ListingDelete";
 import Agent from "../components/Agent";
 import ListingStyles from "../styles/sass/Listing.module.scss";
 
@@ -13,6 +14,7 @@ const Listing = () => {
     const { id } = useParams();
     const [listing, setListing] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [deleteListing, setDeleteListing] = useState(false);
 
     useEffect(() => {
         const headers = { 
@@ -27,6 +29,10 @@ const Listing = () => {
                 setLoading(false);
             });
     }, [id]);
+
+    useEffect(() => {
+        deleteListing ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto";
+    }, [deleteListing])
 
     if (loading) return <p>Loading...</p>;
     if (!listing) return <p>Listing not found</p>;
@@ -65,10 +71,11 @@ const Listing = () => {
                     </p>
                     <p className={ListingStyles.listing__details_descripiton}>{listing.description}</p>
                     <Agent agent={listing.agent} />
-                    <button>ლისტინგის წაშლა</button>
+                    <button onClick={() => setDeleteListing(true)}>ლისტინგის წაშლა</button>
                 </div>
             </div>
             <SimilarListings listing={listing}/>
+            {deleteListing && <ListingDelete id={id} onClick={() => setDeleteListing(false)} />}
         </div>
     );
 };
