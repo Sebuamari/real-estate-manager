@@ -146,7 +146,6 @@ const AddRealEstate = () => {
                 }}
             >
             {({ setFieldValue, values, isSubmitting }) => (
-                <>
                 <Form>
                     <div className={AddRealEstateStyles.form_group}>
                         <h2 id="is_rental">გარიგების ტიპი</h2>
@@ -274,7 +273,6 @@ const AddRealEstate = () => {
                         <Button text={"დაამატე ლისტინგი"} isFilled={true} type={"submit"} />
                     </div>
                 </Form>
-                <pre>{JSON.stringify({ values, isSubmitting }, null, 2)}</pre></>
             )}
             </Formik>
         </div>
