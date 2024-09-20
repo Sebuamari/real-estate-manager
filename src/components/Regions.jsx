@@ -27,8 +27,16 @@ const Regions = ({active}) => {
                 regions.map((region, index) => {
                     return (
                         <div key={index} className={FilterStyles.filter_options_region}>
-                            <input type="checkbox" id={region.name} name={region.name} value={region.id} />
-                            <label htmlFor={region.id}>{region.name}</label>
+                            <label htmlFor={region.id}>
+                                <input 
+                                    type="checkbox" 
+                                    id={region.id} 
+                                    name={region.name} 
+                                    value={region.id}  
+                                />
+                                <span className={FilterStyles.filter_options_region_checkmark}></span>
+                                {region.name}
+                            </label>
                         </div>
                     );
                 })

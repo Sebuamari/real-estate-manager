@@ -233,10 +233,12 @@ const AddRealEstate = () => {
                             >
                             <label>
                                 <Field type="radio" name="is_rental" value="0" />
+                                <span className={AddRealEstateStyles.form_group_rental_checkmark}></span>
                                 იყიდება
                             </label>
                             <label>
                                 <Field type="radio" name="is_rental" value="1" />
+                                <span className={AddRealEstateStyles.form_group_rental_checkmark}></span>
                                 ქირავდება
                             </label>
                         </div>

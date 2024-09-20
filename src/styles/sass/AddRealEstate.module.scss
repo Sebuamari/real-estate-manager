@@ -21,8 +21,56 @@
             gap: 20px;
 
             &_rental {
+                display: block;
+                padding-left: 24px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                grid-column: span 2;
+
                 label {
+                    position: relative;
+                    cursor: pointer;
                     margin-right: 84px;
+
+                    input {
+                        position: absolute;
+                        opacity: 0;
+                        cursor: pointer;
+                    }
+
+                    input:checked ~ .form_group_rental_checkmark {
+                        background-color: transparent;
+
+                        &::after {
+                            display: block;
+                        }
+                    }
+
+                    .form_group_rental_checkmark {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 17px;
+                        width: 17px;
+                        margin-left: -24px;
+                        background-color: transparent;
+                        border: 1px solid var(--text_black);
+                        border-radius: 50%;
+
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            display: none;
+                            top: 4px;
+                            left: 4px;
+                            width: 7px;
+                            height: 7px;
+                            border-radius: 50%;
+                            background: var(--text_black);
+                        }
+                    }
                 }
             }
             h2 {
