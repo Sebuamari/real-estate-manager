@@ -8,10 +8,20 @@ import * as Yup from 'yup';
 
 const AddRealEstate = () => {
     const navigate = useNavigate();
-    let [regions, setRegions] = useState([]);
-    let [chosenRegion, setChosenRegion] = useState(1);
-    let [cities, setCities] = useState([]);
-    let [agents, setAgents] = useState([]);
+    const [regions, setRegions] = useState([]);
+    const [cities, setCities] = useState([]);
+    const [agents, setAgents] = useState([]);
+    const [isRental, setIsRental] = useState(localStorage.getItem('isRental') || null);
+    const [address, setAddress] = useState(localStorage.getItem('address') || null);
+    const [zipCode, setZipCode] = useState(localStorage.getItem('zipCode') || null);
+    const [price, setPrice] = useState(localStorage.getItem('price') || null);
+    const [area, setArea] = useState(localStorage.getItem('area') || null);
+    const [bedrooms, setBedrooms] = useState(localStorage.getItem('bedrooms') || null);
+    const [agentId, setAgentId] = useState(localStorage.getItem('agentId') || 112);
+    const [description, setDescription] = useState(localStorage.getItem('description') || null);
+    const [image, setImage] = useState(localStorage.getItem('image') || null);
+    const [regionId, setRegionId] = useState(localStorage.getItem('regionId') || 1);
+    const [cityId, setCityId] = useState(localStorage.getItem('cityId') || null);
 
     useEffect(() => {
         const headers = { 
@@ -36,8 +46,14 @@ const AddRealEstate = () => {
 
         fetch('https://api.real-estate-manager.redberryinternship.ge/api/cities', { headers })
             .then(response => response.json())
-            .then(data => {setCities(data.filter(city => city.region_id == chosenRegion))});
-    }, [chosenRegion]);
+            .then(data => {
+                const filteredCities = data.filter(city => city.region_id == regionId);
+                setCities(filteredCities);
+                if (!cityId && filteredCities.length > 0) {
+                    setCityId(filteredCities[0].id);
+                }
+            });
+    }, [regionId]);
 
     const addAgent = async (values) => {
         const headers = { 
@@ -122,23 +138,83 @@ const AddRealEstate = () => {
             .required('სავალდებულო')
     });
 
+    const updateIsRental = (isRental) => {
+        setIsRental(isRental);
+        localStorage.setItem('isRental', isRental);
+    }
+
+    const updateAddress = (address) => {
+        setAddress(address);
+        localStorage.setItem('address', address);
+    }
+    
+    const updateZipCode = (zipCode) => {
+        setZipCode(zipCode);
+        localStorage.setItem('zipCode', zipCode);
+    }
+
+    const updatePrice = (price) => {
+        setPrice(price);
+        localStorage.setItem('price', price);
+    }
+
+    const updateArea = (area) => {
+        setArea(area);
+        localStorage.setItem('area', area);
+    }
+
+    const updateDescription = (description) => {
+        setDescription(description);
+        localStorage.setItem('description', description);
+    }
+
+    const updateBedrooms = (bedrooms) => {
+        setBedrooms(bedrooms);
+        localStorage.setItem('bedrooms', bedrooms);
+    }
+
+    const updateRegionId = (regionId) => {
+        setRegionId(regionId);
+        localStorage.setItem('regionId', regionId);
+    }
+
+    const updateCityId = (cityId) => {
+        setCityId(cityId);
+        localStorage.setItem('cityId', cityId);
+    }
+
+    const updateAgentId = (agentId) => {
+        setAgentId(agentId);
+        localStorage.setItem('agentId', agentId);
+    }
+
+    const updateImage = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            const base64String = reader.result;
+            setImage(base64String);
+            localStorage.setItem('image', base64String);
+        };
+    };
+
     return (
       <>
         <div className={AddRealEstateStyles.add_real_estate}>
             <h1>ლისტინგის დამატება</h1>
             <Formik
                 initialValues={{
-                    price: "",
-                    zip_code: "",
-                    description: "",
-                    area: "",
-                    region_id: "",
-                    city_id: "",
-                    address: "",
-                    agent_id: "",
-                    bedrooms: "",
-                    is_rental: "",
-                    image: null
+                    price: price,
+                    zip_code: zipCode,
+                    description: description,
+                    area: area,
+                    region_id: regionId,
+                    city_id: cityId,
+                    address: address,
+                    agent_id: agentId,
+                    bedrooms: bedrooms,
+                    is_rental: isRental,
+                    image: image
                 }}
                 validationSchema={SignupSchema}
                 onSubmit={values => {
@@ -149,7 +225,12 @@ const AddRealEstate = () => {
                 <Form>
                     <div className={AddRealEstateStyles.form_group}>
                         <h2 id="is_rental">გარიგების ტიპი</h2>
-                        <div role="group" className={AddRealEstateStyles.form_group_rental} aria-labelledby="is_rental">
+                        <div role="group" 
+                            value={isRental} 
+                            className={AddRealEstateStyles.form_group_rental} 
+                            aria-labelledby="is_rental"
+                            onChange={(e) => updateIsRental(e.target.value)}
+                            >
                             <label>
                                 <Field type="radio" name="is_rental" value="0" />
                                 იყიდება
@@ -166,19 +247,18 @@ const AddRealEstate = () => {
                         <h2>მდებარეობა</h2>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="address">მისამართი *</label>
-                            <Field name="address" />
+                            <Field name="address" value={address} onChange={(e) => updateAddress(e.target.value)} />
                             <ErrorMessage name="address" />
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="zip_code">საფოსტო ინდექსი *</label>
-                            <Field name="zip_code" />
+                            <Field name="zip_code" value={zipCode} onChange={(e) => updateZipCode(e.target.value)}/>
                             <ErrorMessage name="zip_code" />
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="region_id">რეგიონი</label>
-                            <Field name="region_id" as="select" onChange={(e) => {
-                                setChosenRegion(e.target.value);
-                                setFieldValue("region_id", e.target.value);
+                            <Field name="region_id" as="select" value={regionId} onChange={(e) => {
+                                updateRegionId(e.target.value);
                             }}>
                                 {regions.map((region, id) => {
                                     return <option key={id} value={region.id}>{region.name}</option>
@@ -188,8 +268,8 @@ const AddRealEstate = () => {
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="city_id">ქალაქი</label>
-                            <Field name="city_id" as="select" onChange={(e) => {
-                                setFieldValue("city_id", e.target.value);
+                            <Field name="city_id" as="select" value={cityId} onChange={(e) => {
+                                updateCityId(e.target.value);
                             }}>
                                 {cities.map((city, id) => {
                                     return <option key={id} value={city.id}>{city.name}</option>
@@ -203,22 +283,22 @@ const AddRealEstate = () => {
                         <h2>ბინის დეტალები</h2>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="price">ფასი</label>
-                            <Field name="price" />
+                            <Field name="price" value={price} onChange={(e) => updatePrice(e.target.value)}/>
                             <ErrorMessage name="price" />
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="area">ფართობი</label>
-                            <Field name="area" />
+                            <Field name="area" value={area} onChange={(e) => updateArea(e.target.value)}/>
                             <ErrorMessage name="area" />
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="bedrooms">საძინებლების რაოდენობა*</label>
-                            <Field name="bedrooms" />
+                            <Field name="bedrooms" value={bedrooms} onChange={(e) => updateBedrooms(e.target.value)}/>
                             <ErrorMessage name="bedrooms" />
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup + " " + AddRealEstateStyles.form_subgroup_description}>
                             <label htmlFor="description">აღწერა *</label>
-                            <Field name="description" as="textarea" />
+                            <Field name="description" as="textarea" value={description} onChange={(e) => updateDescription(e.target.value)}/>
                             <ErrorMessage name="description" />
                         </div>
                         <div className={
@@ -229,7 +309,7 @@ const AddRealEstate = () => {
                             {values.image ? (
                                 <div className={AddRealEstateStyles.custom}>
                                     <img
-                                        src={URL.createObjectURL(values.image)}
+                                        src={image}
                                         alt="Preview"
                                         width="100"
                                         height="100"
@@ -246,7 +326,11 @@ const AddRealEstate = () => {
                                         type="file"
                                         accept="image/*"
                                         onChange={(event) => {
-                                            setFieldValue('image', event.currentTarget.files[0]);
+                                            const file = event.currentTarget.files[0];
+                                            if (file) {
+                                                setFieldValue('image', file);
+                                                updateImage(file);
+                                            }
                                         }}
                                     />
                                     <ErrorMessage name="image" />
@@ -259,7 +343,7 @@ const AddRealEstate = () => {
                         <h2>აგენტი</h2>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="agent_id">აირჩიე</label>
-                            <Field name="agent_id" as="select">
+                            <Field name="agent_id" as="select" value={agentId} onChange={(e) => updateAgentId(e.target.value)}>
                                 {agents.map((agent, id) => {
                                     return <option key={id} value={agent.id}>{agent.name}</option>
                                 })}

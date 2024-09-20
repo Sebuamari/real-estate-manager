@@ -8,8 +8,15 @@ import { useNavigate } from "react-router-dom";
 
 const Listings = () => {
     const navigate = useNavigate();
-    let [realEstateListing, setRealEstateListing] = useState([]);
-    let [addAgentActive, setAddAgentActive] = useState(false);
+    const [realEstateListing, setRealEstateListing] = useState([]);
+    const [filteredListings, setFilteredListings] = useState([]);
+    const [filteredListing, setFilteredListing] = useState(localStorage.getItem('filteredListing') || false);
+    const [addAgentActive, setAddAgentActive] = useState(false);
+    const [minPrice, setMinPrice] = useState(localStorage.getItem('minPrice') || null);
+    const [maxPrice, setMaxPrice] = useState(localStorage.getItem('maxPrice') || null);
+    const [minArea, setMinArea] = useState(localStorage.getItem('minArea') || null);
+    const [maxArea, setMaxArea] = useState(localStorage.getItem('maxArea') || null);
+    const [bedrooms, setBedrooms] = useState(localStorage.getItem('bedrooms') || null);
 
     useEffect(() => {
         const headers = { 
@@ -19,8 +26,28 @@ const Listings = () => {
 
         fetch('https://api.real-estate-manager.redberryinternship.ge/api/real-estates', { headers })
             .then(response => response.json())
-            .then(data => setRealEstateListing(data));
+            .then(data => {
+                setRealEstateListing(data);
+            });
     }, []);
+
+    const applyFilters = () => {
+        const filtered = realEstateListing.filter(listing => {
+            const priceCondition = (listing.price >= minPrice) && (listing.price <= maxPrice);
+            const areaCondition = (listing.area >= minArea) && (listing.area <= maxArea);
+            const bedroomCondition = listing.bedrooms === Number(bedrooms);
+
+            return priceCondition || areaCondition || bedroomCondition;
+        });
+
+        setFilteredListings(filtered);
+    };
+
+    useEffect(() => {
+        if (filteredListing) {
+            applyFilters();
+        }
+    }, [realEstateListing, filteredListing, minPrice, maxPrice, minArea, maxArea, bedrooms]);
     
     return (
       <div className={ListingsStyles.listing_container}>
@@ -40,9 +67,16 @@ const Listings = () => {
             </div>
         </div>
         <div className={ListingsStyles.listing}>
-            {realEstateListing.map((listing, index) => (
-                <ListingCard key={index} listing={listing} />
-            ))}
+            { filteredListing && filteredListings.length === 0 ?
+                <h1>აღნიშნული მონაცემებით განცხადება არ იძებნება</h1> :
+                filteredListing && filteredListings.length > 0 ?
+                filteredListings.map((listing, index) => (
+                    <ListingCard key={index} listing={listing} />
+                )) :
+                realEstateListing.map((listing, index) => (
+                    <ListingCard key={index} listing={listing} />
+                ))
+            }
         </div>
         {addAgentActive && <AddAgent onClick={() => setAddAgentActive(false)} />}
       </div>
