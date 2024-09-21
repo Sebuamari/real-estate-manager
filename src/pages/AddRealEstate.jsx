@@ -67,7 +67,7 @@ const AddRealEstate = () => {
         return new Blob([ab], { type });
     };
 
-    const addAgent = async (values) => {
+    const addRealEstate = async (values) => {
         const headers = { 
             'accept': 'application/json',
             'Authorization': `Bearer ${process.env.REACT_APP_API_TOKEN}` 
@@ -97,6 +97,7 @@ const AddRealEstate = () => {
         })
         .then(async response => {
             if (response.ok) {
+                clearData();
                 navigate("/");
             } else {
                 const errorData = await response.json();
@@ -105,7 +106,7 @@ const AddRealEstate = () => {
             }
         })
         .catch(error => {
-            console.error("Error adding agent:", error);
+            console.error("Error adding a real estate:", error);
         });
     };
 
@@ -230,6 +231,20 @@ const AddRealEstate = () => {
         };
     };
 
+    const clearData = () => {
+        localStorage.removeItem('image');
+        localStorage.removeItem('agentId');
+        localStorage.removeItem('cityId');
+        localStorage.removeItem('regionId');
+        localStorage.removeItem('description');
+        localStorage.removeItem('bedrooms');
+        localStorage.removeItem('address');
+        localStorage.removeItem('area');
+        localStorage.removeItem('price');
+        localStorage.removeItem('zipCode');
+        localStorage.removeItem('isRental');
+    }
+
     return (
       <>
         <div className={AddRealEstateStyles.add_real_estate}>
@@ -250,7 +265,7 @@ const AddRealEstate = () => {
                 }}
                 validationSchema={SignupSchema}
                 onSubmit={values => {
-                    addAgent(values);
+                    addRealEstate(values);
                 }}
             >
             {({ setFieldValue, values, errors, touched }) => (
@@ -442,7 +457,10 @@ const AddRealEstate = () => {
                     </div>
 
                     <div className={AddRealEstateStyles.add_real_estate_buttons}>
-                        <Button text={"გაუქმება"} isFilled={false} onClick={() => navigate("/")} />
+                        <Button text={"გაუქმება"} isFilled={false} onClick={() => {
+                            clearData();
+                            navigate("/");
+                        }} />
                         <Button text={"დაამატე ლისტინგი"} isFilled={true} type={"submit"} />
                     </div>
                 </Form>
