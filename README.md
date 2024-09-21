@@ -13,3 +13,6 @@ A real estate listing app built with React with basic functionality.
 - **LocalStorage** (for filter state and images)
 - **Yup** (form validation)
 - **REST API** (for managing properties and agents)
+
+## Live Demo
+[Live Deployment](https://sebuamari.github.io/real-estate-manager/)
