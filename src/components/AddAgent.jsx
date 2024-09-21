@@ -77,7 +77,6 @@ const AddAgent = ({id, onClick}) => {
                 }}
             >
             {({ setFieldValue, values, errors, touched }) => (
-                console.log(errors),
                 <Form>
                     <div className={AddAgentStyles.form_group}>
                         <label htmlFor="name">სახელი *</label>
