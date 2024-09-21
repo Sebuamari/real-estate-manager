@@ -7,6 +7,7 @@ A real estate listing app built with React with basic functionality.
 - List, filter, and view property details
 - Create new property listings
 - Add new agents
+- Similar real estates(empty if no other real estates in same region)
 
 ## Tech Stack
 - **React**
