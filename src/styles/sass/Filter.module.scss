@@ -95,6 +95,10 @@
                     
                             input:checked + .filter_options_region_checkmark {
                                 background-color: #45A849;
+
+                                &::after {
+                                    display: block;
+                                }
                             }
                     
                             .filter_options_region_checkmark {
@@ -109,7 +113,7 @@
                                 &::after {
                                     content: "";
                                     position: absolute;
-                                    display: block;
+                                    display: none;
                                     left: 6px;
                                     top: 2px;
                                     width: 5px;

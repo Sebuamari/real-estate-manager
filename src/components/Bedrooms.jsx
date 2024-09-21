@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
 import FilterStyles from "../styles/sass/Filter.module.scss";
 import Button from "./Button";
 
-const Bedrooms = ({active, filterListing}) => {
-    const [bedrooms, setBedrooms] = useState(localStorage.getItem('bedrooms') || null);
+const Bedrooms = ({
+      active, 
+      onFilter,
+      bedrooms,
+      setBedrooms
+    }) => {
 
     return (
       <div className={
@@ -40,7 +43,7 @@ const Bedrooms = ({active, filterListing}) => {
             3
           </span>
         </div>
-        <Button text={"არჩევა"} isFilled={true} onClick={filterListing} />
+        <Button text={"არჩევა"} isFilled={true} onClick={onFilter} />
       </div>
     );
 };

@@ -1,10 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import FilterStyles from "../styles/sass/Filter.module.scss";
 import Button from "./Button";
 
-const Prices = ({active, filterListing}) => {
-    const [minPrice, setMinPrice] = useState(localStorage.getItem('minPrice') || null);
-    const [maxPrice, setMaxPrice] = useState(localStorage.getItem('maxPrice') || null);
+const Prices = ({   
+        active, 
+        onFilter,
+        filterValues: {
+            minPrice,
+            maxPrice
+        },
+        setFilterValues: {
+            setMinPrice,
+            setMaxPrice
+        }
+    }) => {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const updateMinPrice = (newValue) => {
@@ -69,7 +78,7 @@ const Prices = ({active, filterListing}) => {
         </div>
         <div className={FilterStyles.filter_options_bottom}>
             <span>{errorMessage}</span>
-            <Button text={"არჩევა"} isFilled={true} onClick={filterListing} />
+            <Button text={"არჩევა"} isFilled={true} onClick={onFilter} />
         </div>
       </div>
     );

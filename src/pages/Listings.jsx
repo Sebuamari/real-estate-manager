@@ -10,13 +10,13 @@ const Listings = () => {
     const navigate = useNavigate();
     const [realEstateListing, setRealEstateListing] = useState([]);
     const [filteredListings, setFilteredListings] = useState([]);
-    const [filteredListing, setFilteredListing] = useState(localStorage.getItem('filteredListing') || false);
     const [addAgentActive, setAddAgentActive] = useState(false);
-    const [minPrice, setMinPrice] = useState(localStorage.getItem('minPrice') || null);
-    const [maxPrice, setMaxPrice] = useState(localStorage.getItem('maxPrice') || null);
-    const [minArea, setMinArea] = useState(localStorage.getItem('minArea') || null);
-    const [maxArea, setMaxArea] = useState(localStorage.getItem('maxArea') || null);
-    const [bedrooms, setBedrooms] = useState(localStorage.getItem('bedrooms') || null);
+    const [regions, setRegions] = useState(localStorage.getItem("regions")?.split(',').map(String) || []);
+    const [minPrice, setMinPrice] = useState(null);
+    const [maxPrice, setMaxPrice] = useState(null);
+    const [minArea, setMinArea] = useState(null);
+    const [maxArea, setMaxArea] = useState(null);
+    const [bedrooms, setBedrooms] = useState(null);
 
     useEffect(() => {
         const headers = { 
@@ -28,59 +28,71 @@ const Listings = () => {
             .then(response => response.json())
             .then(data => {
                 setRealEstateListing(data);
+                setFilteredListings(data);
             });
     }, []);
 
     const applyFilters = () => {
         const filtered = realEstateListing.filter(listing => {
-            const priceCondition = (listing.price >= minPrice) && (listing.price <= maxPrice);
-            const areaCondition = (listing.area >= minArea) && (listing.area <= maxArea);
-            const bedroomCondition = listing.bedrooms === Number(bedrooms);
+            const priceCondition = (!minPrice || listing.price >= minPrice) && (!maxPrice || listing.price <= maxPrice);
+            const areaCondition = (!minArea || listing.area >= minArea) && (!maxArea || listing.area <= maxArea);
+            const bedroomCondition = !bedrooms || listing.bedrooms === Number(bedrooms);
+            const regionsCondition = !regions || regions.includes(listing.region_id);
 
-            return priceCondition || areaCondition || bedroomCondition;
+            return priceCondition && areaCondition && bedroomCondition && regionsCondition;
         });
 
         setFilteredListings(filtered);
     };
 
     useEffect(() => {
-        if (filteredListing) {
-            applyFilters();
-        }
-    }, [realEstateListing, filteredListing, minPrice, maxPrice, minArea, maxArea, bedrooms]);
-    
+        applyFilters();
+    }, [realEstateListing, regions, minPrice, maxPrice, minArea, maxArea, bedrooms]);
+
     return (
-      <div className={ListingsStyles.listing_container}>
-        <div className={ListingsStyles.listing_actions}>
-            <Filter />
-            <div className={ListingsStyles.listing_actions_buttons}>
-                <Button 
-                    text="ლისტინგის დამატება" 
-                    isFilled={true} 
-                    onClick={() => navigate("/add-real-estate")} 
-                    plusButton={true} />
-                <Button 
-                    text="აგენტის დამატება" 
-                    isFilled={false} 
-                    onClick={() => setAddAgentActive(true)} 
-                    plusButton={true} />
+        <div className={ListingsStyles.listing_container}>
+            <div className={ListingsStyles.listing_actions}>
+                <Filter 
+                    onClearFilter={() => {
+                        setMinPrice(null);
+                        setMaxPrice(null);
+                        setMinArea(null);
+                        setMaxArea(null);
+                        setBedrooms(null);
+                        setRegions(null);
+                        setFilteredListings(realEstateListing);
+                    }} 
+                    onFilter={applyFilters} 
+                    filterValues={{ minPrice, maxPrice, minArea, maxArea, bedrooms, regions }}
+                    setFilterValues={{ setMinPrice, setMaxPrice, setMinArea, setMaxArea, setBedrooms, setRegions }}
+                />
+                <div className={ListingsStyles.listing_actions_buttons}>
+                    <Button 
+                        text="ლისტინგის დამატება" 
+                        isFilled={true} 
+                        onClick={() => navigate("/add-real-estate")} 
+                        plusButton={true} 
+                    />
+                    <Button 
+                        text="აგენტის დამატება" 
+                        isFilled={false} 
+                        onClick={() => setAddAgentActive(true)} 
+                        plusButton={true} 
+                    />
+                </div>
             </div>
+            <div className={ListingsStyles.listing}>
+                {filteredListings.length === 0 ? (
+                    <h1>აღნიშნული მონაცემებით განცხადება არ იძებნება</h1>
+                ) : (
+                    filteredListings.map((listing, index) => (
+                        <ListingCard key={index} listing={listing} />
+                    ))
+                )}
+            </div>
+            {addAgentActive && <AddAgent onClick={() => setAddAgentActive(false)} />}
         </div>
-        <div className={ListingsStyles.listing}>
-            { filteredListing && filteredListings.length === 0 ?
-                <h1>აღნიშნული მონაცემებით განცხადება არ იძებნება</h1> :
-                filteredListing && filteredListings.length > 0 ?
-                filteredListings.map((listing, index) => (
-                    <ListingCard key={index} listing={listing} />
-                )) :
-                realEstateListing.map((listing, index) => (
-                    <ListingCard key={index} listing={listing} />
-                ))
-            }
-        </div>
-        {addAgentActive && <AddAgent onClick={() => setAddAgentActive(false)} />}
-      </div>
     );
 };
-  
+
 export default Listings;

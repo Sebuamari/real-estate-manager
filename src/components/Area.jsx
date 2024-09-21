@@ -1,10 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import FilterStyles from "../styles/sass/Filter.module.scss";
 import Button from "./Button";
 
-const Area = ({active, filterListing}) => {
-    const [minArea, setMinArea] = useState(localStorage.getItem('minArea') || null);
-    const [maxArea, setMaxArea] = useState(localStorage.getItem('maxArea') || null);
+const Area = ({
+        active, 
+        onFilter,
+        filterValues: {
+            minArea,
+            maxArea
+        },
+        setFilterValues: {
+            setMinArea,
+            setMaxArea
+        }
+    }) => {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const updateMinArea = (newValue) => {
@@ -69,7 +78,7 @@ const Area = ({active, filterListing}) => {
         </div>
         <div className={FilterStyles.filter_options_bottom}>
             <span>{errorMessage}</span>
-            <Button text={"არჩევა"} isFilled={true} onClick={filterListing} />
+            <Button text={"არჩევა"} isFilled={true} onClick={onFilter} />
         </div>
       </div>
     );
