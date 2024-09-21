@@ -12,7 +12,7 @@ const FilterTag = ({
     onClick
 }) => {
     const [regionName, setRegionName] = useState("");
-
+    
     useEffect(() => {
         const headers = { 
             'accept': 'application/json',
@@ -22,7 +22,7 @@ const FilterTag = ({
         fetch('https://api.real-estate-manager.redberryinternship.ge/api/regions', { headers })
             .then(response => response.json())
             .then(data => {
-                setRegionName(region != "" ? data.filter(r => r.id == region)[0].name : "");
+                setRegionName(region && region != "" ? data.filter(r => r.id == region)[0].name : "");
             })
     }, []);
 
