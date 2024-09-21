@@ -15,8 +15,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Listings />} />
           <Route path="/real-estate-manager/" element={<Listings />} />
-          <Route path="/listing/:id" element={<Listing />} />
-          <Route path="/add-real-estate" element={<AddRealEstate />} />
+          <Route path="/listing/:id/" element={<Listing />} />
+          <Route path="/add-real-estate/" element={<AddRealEstate />} />
         </Routes>
       </BrowserRouter>
     </div>
