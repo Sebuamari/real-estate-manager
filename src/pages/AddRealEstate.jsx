@@ -200,13 +200,13 @@ const AddRealEstate = () => {
     }
 
     const updateRegionId = (regionId, setFieldValue) => {
-        setFieldValue("regionId", regionId);
+        setFieldValue("region_id", regionId);
         setRegionId(regionId);
         localStorage.setItem('regionId', regionId);
     }
 
     const updateCityId = (cityId, setFieldValue) => {
-        setFieldValue("cityId", cityId);
+        setFieldValue("city_id", cityId);
         setCityId(cityId);
         localStorage.setItem('cityId', cityId);
     }
