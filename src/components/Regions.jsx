@@ -17,11 +17,10 @@ const Regions = ({active, onFilter, regions, setRegions}) => {
     }, []);
 
     const updateRegions = (region) => {
-        //console.log(regions);
         const updatedRegions = 
-            regions && !regions.includes(region) ? [...regions, region] : 
-            regions && regions.includes(region) ? [...regions.filter(r => r !== region)] : 
-            [region];
+            regions && !regions.includes(String(region)) ? [...regions, String(region)] : 
+            regions && regions.includes(String(region)) ? [...regions.filter(r => r != String(region))] : 
+            [String(region)];
         setRegions(updatedRegions);
         localStorage.setItem('regions', updatedRegions);
     }

@@ -35,13 +35,13 @@ const Filter = ({
         localStorage.removeItem('maxArea');
         localStorage.removeItem('bedrooms');
         localStorage.removeItem('regions');
-        localStorage.setItem('filteredListing', false)
         onClearFilter(false);
         setMinPrice(null);
         setMaxPrice(null);
         setMinArea(null);
         setMaxArea(null);
         setBedrooms(null);
+        setRegions([]);
         setActiveFilter(null);
     }
 
@@ -161,7 +161,7 @@ const Filter = ({
             <span 
               className={
                 FilterStyles.filter_choices_clear_button + " " +
-                (minPrice & maxPrice || minArea & maxArea || bedrooms ? FilterStyles.filter_choices_clear_button_active : "")
+                (minPrice & maxPrice || minArea & maxArea || bedrooms || regions.length > 0 ? FilterStyles.filter_choices_clear_button_active : "")
               } 
               onClick={() => clearFilter()}>
                 გასუფთავება

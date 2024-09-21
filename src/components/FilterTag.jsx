@@ -13,8 +13,6 @@ const FilterTag = ({
 }) => {
     const [regionName, setRegionName] = useState("");
 
-    console.log(region)
-
     useEffect(() => {
         const headers = { 
             'accept': 'application/json',
