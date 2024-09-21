@@ -37,7 +37,7 @@ const Listings = () => {
             const priceCondition = (!minPrice || listing.price >= minPrice) && (!maxPrice || listing.price <= maxPrice);
             const areaCondition = (!minArea || listing.area >= minArea) && (!maxArea || listing.area <= maxArea);
             const bedroomCondition = !bedrooms || listing.bedrooms === Number(bedrooms);
-            const regionsCondition = !regions || regions.includes(listing.region_id);
+            const regionsCondition = (!regions || regions.length === 0 || regions.includes(listing.region_id));
 
             return priceCondition && areaCondition && bedroomCondition && regionsCondition;
         });
@@ -70,7 +70,7 @@ const Listings = () => {
                     <Button 
                         text="ლისტინგის დამატება" 
                         isFilled={true} 
-                        onClick={() => navigate("/add-real-estate")} 
+                        onClick={() => navigate("/add-real-estate/")} 
                         plusButton={true} 
                     />
                     <Button 

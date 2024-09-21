@@ -20,7 +20,7 @@ const ListingCard = ({
     const navigate = useNavigate();
 
     const handleClick = () => {
-      navigate(`/listing/${id}`);
+      navigate(`/listing/${id}/`);
     };
 
     return (

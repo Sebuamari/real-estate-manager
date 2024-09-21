@@ -13,6 +13,8 @@ const FilterTag = ({
 }) => {
     const [regionName, setRegionName] = useState("");
 
+    console.log(region)
+
     useEffect(() => {
         const headers = { 
             'accept': 'application/json',
@@ -21,9 +23,9 @@ const FilterTag = ({
 
         fetch('https://api.real-estate-manager.redberryinternship.ge/api/regions', { headers })
             .then(response => response.json())
-            .then(data => setRegionName(
-                data.filter(r => r.id == region)[0].name
-            ));
+            .then(data => {
+                setRegionName(region != "" ? data.filter(r => r.id == region)[0].name : "");
+            })
     }, []);
 
     return (
