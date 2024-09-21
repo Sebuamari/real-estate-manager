@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/real-estate-manager/static/css/main.95b9b4f9.css",
+    "main.js": "/real-estate-manager/static/js/main.a1c65bce.js",
+    "static/media/bed.svg": "/real-estate-manager/static/media/bed.eab62df9225287006125c0325ffba2a6.svg",
+    "static/media/slick.svg": "/real-estate-manager/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/real-estate-manager/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/real-estate-manager/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/phone.svg": "/real-estate-manager/static/media/phone.f9996756fc9a2a7ba01082aa302f7167.svg",
+    "static/media/slick.woff": "/real-estate-manager/static/media/slick.295183786cd8a1389865.woff",
+    "static/media/sign.svg": "/real-estate-manager/static/media/sign.7c80d35883a41c18a2561e4ddec2191a.svg",
+    "static/media/plus.svg": "/real-estate-manager/static/media/plus.dd91223851066f649eb06b33e511198f.svg",
+    "static/media/mail.svg": "/real-estate-manager/static/media/mail.7662038aad75b9a2812a4d88d211dcc4.svg",
+    "index.html": "/real-estate-manager/index.html",
+    "static/media/arrow.svg": "/real-estate-manager/static/media/arrow.840410776651c28f49189cfc3e078713.svg",
+    "static/media/arrow_right.svg": "/real-estate-manager/static/media/arrow_right.5121bbc54f6327d33d86ac48e1eecddf.svg",
+    "static/media/area.svg": "/real-estate-manager/static/media/area.2d3bd461524696c24d89b524dafd9e74.svg",
+    "static/media/pin.svg": "/real-estate-manager/static/media/pin.864f438f508c590fdf5b8a8cfc5fd89a.svg",
+    "static/media/plus_circle.svg": "/real-estate-manager/static/media/plus_circle.dac8245db63d4cd2fde3dc1985ff2957.svg",
+    "static/media/arrow_down.svg": "/real-estate-manager/static/media/arrow_down.f41218101d968c56f638.svg",
+    "static/media/cross.svg": "/real-estate-manager/static/media/cross.5c9e5e19fc61d263515c66aed1717293.svg",
+    "static/media/filter_cross.svg": "/real-estate-manager/static/media/filter_cross.78e751c78e4a866ecd2ba3de5fe8f2be.svg",
+    "main.95b9b4f9.css.map": "/real-estate-manager/static/css/main.95b9b4f9.css.map",
+    "main.a1c65bce.js.map": "/real-estate-manager/static/js/main.a1c65bce.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.95b9b4f9.css",
+    "static/js/main.a1c65bce.js"
+  ]
+}
