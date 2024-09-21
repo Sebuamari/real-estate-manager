@@ -44,6 +44,23 @@
             .form_group {
                 display: flex;
                 flex-direction: column;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 16.8px;
+
+                .form_group_error {
+                    &::before {
+                        display: none;
+                        width: 10px;
+                        height: 10px;
+                        margin-right: 7px;
+                        content: url("../../../src/assets/svg/check.svg");
+                    }
+
+                    &_active::before {
+                        display: inline-block;
+                    }
+                }
 
                 label {
                     font-weight: 500;

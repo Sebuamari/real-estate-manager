@@ -1,4 +1,4 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import plus_circle from "../assets/svg/plus_circle.svg"
 import AddAgentStyles from "../styles/sass/AddAgent.module.scss";
 import Button from './Button';
@@ -77,33 +77,50 @@ const AddAgent = ({id, onClick}) => {
                 }}
             >
             {({ setFieldValue, values, errors, touched }) => (
+                console.log(errors),
                 <Form>
                     <div className={AddAgentStyles.form_group}>
                         <label htmlFor="name">სახელი *</label>
                         <Field name="name" />
-                        {errors.name && touched.name ? (
-                            <div>{errors.name}</div>
-                        ) : null}
+                        <span className={
+                            AddAgentStyles.form_group_error + " " +
+                            (errors.name && touched.name ? AddAgentStyles.form_group_error_active : "")
+                        }>
+                            <ErrorMessage name="name" />
+                        </span>
                     </div>
 
                     <div className={AddAgentStyles.form_group}>
                         <label htmlFor="surname">გვარი</label>
                         <Field name="surname" />
-                        {errors.surname && touched.surname ? (
-                            <div>{errors.surname}</div>
-                        ) : null}
+                        <span className={
+                            AddAgentStyles.form_group_error + " " +
+                            (errors.surname && touched.surname ? AddAgentStyles.form_group_error_active : "")
+                        }>
+                            <ErrorMessage name="surname" />
+                        </span>
                     </div>
 
                     <div className={AddAgentStyles.form_group}>
                         <label htmlFor="firstName">ელ-ფოსტა *</label>
                         <Field name="email" type="email" />
-                        {errors.email && touched.email ? <div>{errors.email}</div> : null}
+                        <span className={
+                            AddAgentStyles.form_group_error + " " +
+                            (errors.email && touched.email ? AddAgentStyles.form_group_error_active : "")
+                        }>
+                            <ErrorMessage name="email" />
+                        </span>
                     </div>
 
                     <div className={AddAgentStyles.form_group}>
                         <label htmlFor="firstName">ტელეფონის ნომერი</label>
                         <Field name="phone" type="phone" />
-                        {errors.phone && touched.phone ? <div>{errors.phone}</div> : null}
+                        <span className={
+                            AddAgentStyles.form_group_error + " " +
+                            (errors.phone && touched.phone ? AddAgentStyles.form_group_error_active : "")
+                        }>
+                            <ErrorMessage name="phone" />
+                        </span>
                     </div>
 
                     <div className={
@@ -134,7 +151,12 @@ const AddAgent = ({id, onClick}) => {
                                         setFieldValue('avatar', event.currentTarget.files[0]);
                                     }}
                                 />
-                                {errors.avatar && touched.avatar && <div>{errors.avatar}</div>}
+                                <span className={
+                                    AddAgentStyles.form_group_error + " " +
+                                    (errors.avatar && touched.avatar ? AddAgentStyles.form_group_error_active : "")
+                                }>
+                                    <ErrorMessage name="avatar" />
+                                </span>
                             </>
                         )}
                     </div>

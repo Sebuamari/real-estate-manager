@@ -221,7 +221,7 @@ const AddRealEstate = () => {
                     addAgent(values);
                 }}
             >
-            {({ setFieldValue, values, isSubmitting }) => (
+            {({ setFieldValue, values, errors, touched, isSubmitting }) => (
                 <Form>
                     <div className={AddRealEstateStyles.form_group}>
                         <h2 id="is_rental">გარიგების ტიპი</h2>
@@ -242,7 +242,12 @@ const AddRealEstate = () => {
                                 ქირავდება
                             </label>
                         </div>
-                        <ErrorMessage name="is_rental" />
+                        <span className={
+                            AddRealEstateStyles.form_group_error + " " +
+                            (errors.is_rental && touched.is_rental ? AddRealEstateStyles.form_group_error_active : "")
+                        }>
+                            <ErrorMessage name="is_rental" />
+                        </span>
                     </div>
 
                     <div className={AddRealEstateStyles.form_group}>
@@ -250,12 +255,22 @@ const AddRealEstate = () => {
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="address">მისამართი *</label>
                             <Field name="address" value={address} onChange={(e) => updateAddress(e.target.value)} />
-                            <ErrorMessage name="address" />
+                            <span className={
+                                AddRealEstateStyles.form_group_error + " " +
+                                (errors.address && touched.address ? AddRealEstateStyles.form_group_error_active : "")
+                            }>
+                                <ErrorMessage name="address" />
+                            </span>
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="zip_code">საფოსტო ინდექსი *</label>
                             <Field name="zip_code" value={zipCode} onChange={(e) => updateZipCode(e.target.value)}/>
-                            <ErrorMessage name="zip_code" />
+                            <span className={
+                                AddRealEstateStyles.form_group_error + " " +
+                                (errors.zip_code && touched.zip_code ? AddRealEstateStyles.form_group_error_active : "")
+                            }>
+                                <ErrorMessage name="zip_code" />
+                            </span>
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="region_id">რეგიონი</label>
@@ -266,7 +281,12 @@ const AddRealEstate = () => {
                                     return <option key={id} value={region.id}>{region.name}</option>
                                 })}
                             </Field>
-                            <ErrorMessage name="region_id" />
+                            <span className={
+                                AddRealEstateStyles.form_group_error + " " +
+                                (errors.region_id && touched.region_id ? AddRealEstateStyles.form_group_error_active : "")
+                            }>
+                                <ErrorMessage name="region_id" />
+                            </span>
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="city_id">ქალაქი</label>
@@ -277,7 +297,12 @@ const AddRealEstate = () => {
                                     return <option key={id} value={city.id}>{city.name}</option>
                                 })}
                             </Field>
-                            <ErrorMessage name="city_id" />
+                            <span className={
+                                AddRealEstateStyles.form_group_error + " " +
+                                (errors.city_id && touched.city_id ? AddRealEstateStyles.form_group_error_active : "")
+                            }>
+                                <ErrorMessage name="city_id" />
+                            </span>
                         </div>
                     </div>
 
@@ -286,22 +311,42 @@ const AddRealEstate = () => {
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="price">ფასი</label>
                             <Field name="price" value={price} onChange={(e) => updatePrice(e.target.value)}/>
-                            <ErrorMessage name="price" />
+                            <span className={
+                                AddRealEstateStyles.form_group_error + " " +
+                                (errors.price && touched.price ? AddRealEstateStyles.form_group_error_active : "")
+                            }>
+                                <ErrorMessage name="price" />
+                            </span>
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="area">ფართობი</label>
                             <Field name="area" value={area} onChange={(e) => updateArea(e.target.value)}/>
-                            <ErrorMessage name="area" />
+                            <span className={
+                                AddRealEstateStyles.form_group_error + " " +
+                                (errors.area && touched.area ? AddRealEstateStyles.form_group_error_active : "")
+                            }>
+                                <ErrorMessage name="area" />
+                            </span>
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup}>
                             <label htmlFor="bedrooms">საძინებლების რაოდენობა*</label>
                             <Field name="bedrooms" value={bedrooms} onChange={(e) => updateBedrooms(e.target.value)}/>
-                            <ErrorMessage name="bedrooms" />
+                            <span className={
+                                AddRealEstateStyles.form_group_error + " " +
+                                (errors.bedrooms && touched.bedrooms ? AddRealEstateStyles.form_group_error_active : "")
+                            }>
+                                <ErrorMessage name="bedrooms" />
+                            </span>
                         </div>
                         <div className={AddRealEstateStyles.form_subgroup + " " + AddRealEstateStyles.form_subgroup_description}>
                             <label htmlFor="description">აღწერა *</label>
                             <Field name="description" as="textarea" value={description} onChange={(e) => updateDescription(e.target.value)}/>
-                            <ErrorMessage name="description" />
+                            <span className={
+                                AddRealEstateStyles.form_group_error + " " +
+                                (errors.description && touched.description ? AddRealEstateStyles.form_group_error_active : "")
+                            }>
+                                <ErrorMessage name="description" />
+                            </span>
                         </div>
                         <div className={
                             AddRealEstateStyles.form_subgroup + " " + 
@@ -335,7 +380,12 @@ const AddRealEstate = () => {
                                             }
                                         }}
                                     />
-                                    <ErrorMessage name="image" />
+                                    <span className={
+                                        AddRealEstateStyles.form_group_error + " " +
+                                        (errors.image && touched.image ? AddRealEstateStyles.form_group_error_active : "")
+                                    }>
+                                        <ErrorMessage name="image" />
+                                    </span>
                                 </>
                             )}
                         </div>
@@ -350,7 +400,12 @@ const AddRealEstate = () => {
                                     return <option key={id} value={agent.id}>{agent.name}</option>
                                 })}
                             </Field>
-                            <ErrorMessage name="agent_id" />
+                            <span className={
+                                AddRealEstateStyles.form_group_error + " " +
+                                (errors.agent_id && touched.agent_id ? AddRealEstateStyles.form_group_error_active : "")
+                            }>
+                                <ErrorMessage name="agent_id" />
+                            </span>
                         </div>
                     </div>
 
