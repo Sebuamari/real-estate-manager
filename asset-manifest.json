@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/real-estate-manager/static/css/main.06eaa8ac.css",
-    "main.js": "/real-estate-manager/static/js/main.26665054.js",
+    "main.js": "/real-estate-manager/static/js/main.772231ac.js",
     "static/media/bed.svg": "/real-estate-manager/static/media/bed.eab62df9225287006125c0325ffba2a6.svg",
     "static/media/slick.svg": "/real-estate-manager/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/real-estate-manager/static/media/slick.a4e97f5a2a64f0ab1323.eot",
@@ -22,10 +22,10 @@
     "static/media/filter_cross.svg": "/real-estate-manager/static/media/filter_cross.78e751c78e4a866ecd2ba3de5fe8f2be.svg",
     "static/media/check.svg": "/real-estate-manager/static/media/check.9876738801928b9175a3.svg",
     "main.06eaa8ac.css.map": "/real-estate-manager/static/css/main.06eaa8ac.css.map",
-    "main.26665054.js.map": "/real-estate-manager/static/js/main.26665054.js.map"
+    "main.772231ac.js.map": "/real-estate-manager/static/js/main.772231ac.js.map"
   },
   "entrypoints": [
     "static/css/main.06eaa8ac.css",
-    "static/js/main.26665054.js"
+    "static/js/main.772231ac.js"
   ]
 }
