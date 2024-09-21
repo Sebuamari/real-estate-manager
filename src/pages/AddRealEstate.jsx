@@ -19,7 +19,9 @@ const AddRealEstate = () => {
     const [bedrooms, setBedrooms] = useState(localStorage.getItem('bedrooms') || null);
     const [agentId, setAgentId] = useState(localStorage.getItem('agentId') || 112);
     const [description, setDescription] = useState(localStorage.getItem('description') || null);
-    const [image, setImage] = useState(localStorage.getItem('image') || null);
+    const storedImage = JSON.parse(localStorage.getItem('image'));
+    const [image, setImage] = useState(storedImage?.base64 || null);
+    const [imageMeta] = useState(storedImage ? { type: storedImage.type, size: storedImage.size } : null);
     const [regionId, setRegionId] = useState(localStorage.getItem('regionId') || 1);
     const [cityId, setCityId] = useState(localStorage.getItem('cityId') || null);
 
@@ -55,6 +57,16 @@ const AddRealEstate = () => {
             });
     }, [regionId]);
 
+    const base64ToBlob = (base64String, type) => {
+        const byteString = atob(base64String.split(',')[1]);
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], { type });
+    };
+
     const addAgent = async (values) => {
         const headers = { 
             'accept': 'application/json',
@@ -72,7 +84,11 @@ const AddRealEstate = () => {
         formData.append('agent_id', values.agent_id);
         formData.append('bedrooms', values.bedrooms);
         formData.append('is_rental', values.is_rental);
-        formData.append('image', values.image);
+        
+        if (imageMeta && image) {
+            const imageBlob = base64ToBlob(image, imageMeta.type);
+            formData.set('image', imageBlob, 'image.jpg');
+        }
 
         fetch(`https://api.real-estate-manager.redberryinternship.ge/api/real-estates`, {
             method: 'POST',
@@ -121,18 +137,20 @@ const AddRealEstate = () => {
         image: Yup.mixed()
             .required('სავალდებულო')
             .test(
-              'fileType',
-              'ფაილის ტიპი არასწორია, ატვირთეთ მხოლოდ სურათი',
-              value => {
-                return value && ['image/jpeg', 'image/png', 'image/gif'].includes(value.type);
-              }
+                'fileType',
+                'ფაილის ტიპი არასწორია, ატვირთეთ მხოლოდ სურათი',
+                value => {
+                    if (imageMeta) return ['image/jpeg', 'image/png', 'image/gif'].includes(imageMeta.type);
+                    return value && ['image/jpeg', 'image/png', 'image/gif'].includes(value.type);
+                }
             )
             .test(
-              'fileSize',
-              'ფაილის ზომა არ უნდა აღემატებოდეს 1MB-ს',
-              value => {
-                return value && value.size <= 1048576; // 1MB = 1048576 bytes
-              }
+                'fileSize',
+                'ფაილის ზომა არ უნდა აღემატებოდეს 1MB-ს',
+                value => {
+                    if (imageMeta) return imageMeta.size <= 1048576;
+                    return value && value.size <= 1048576; // 1MB = 1048576 bytes
+                }
             ),
         agent_id: Yup.number()
             .required('სავალდებულო')
@@ -194,7 +212,11 @@ const AddRealEstate = () => {
         reader.onloadend = () => {
             const base64String = reader.result;
             setImage(base64String);
-            localStorage.setItem('image', base64String);
+            localStorage.setItem('image', JSON.stringify({
+                base64: base64String,
+                type: file.type,
+                size: file.size
+            }));
         };
     };
 
